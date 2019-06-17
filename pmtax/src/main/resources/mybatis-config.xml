@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC
+"-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+				 			
+		
+	</typeAliases>
+	<mappers>
+	<!-- 퀘리문 저장용 매퍼 xml 파일 등록 : 필수 -->
+	<!-- 주의 : 등록된 매퍼 파일 안의 쿼리문 오류가 있으면 톰켓 실행 안 됨. config 파일로 오류로 처리됨. -->
+	
+	</mappers>
+</configuration>
