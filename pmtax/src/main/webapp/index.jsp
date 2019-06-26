@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>가감세무법인</title>
 </head>
 <body>
-<h1>hello</h1>
+<!-- <h1>first spring framework project</h1> -->
+
+<%-- <% request.getRequestDispatcher("main.do").forward(request, response); %> --%>
+<jsp:forward page="main.do"/>
+
 </body>
 </html>
