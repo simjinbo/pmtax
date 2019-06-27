@@ -10,5 +10,12 @@ public class IntroController {
 	public String moveAbouts() {
 		return "intro/intro";
 	}
-	
+	@RequestMapping(value = "service.do")
+	public String moveService() {
+		return "intro/service";
+	}
+	@RequestMapping(value = "contact.do")
+	public String moveContact() {
+		return "intro/contact";
+	}
 }

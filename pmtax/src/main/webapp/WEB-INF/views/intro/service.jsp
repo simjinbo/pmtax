@@ -39,11 +39,10 @@
 		url('${pageContext.request.contextPath}/resources/images/2.jpg');
 	background-size: cover;
 }
-
 #hj-intro-con {
-	min-height: 960px;
+    min-height: 960px;
+	
 }
-
 #hj-sub-container {
 	float: left;
 	margin-right: 1%;
@@ -74,48 +73,41 @@ ul {
 		<div class="sub-container" id="hj-sub-container" style="float: left;">
 			<h3>사무소 소개</h3>
 			<ul style="border-top: 3px solid black;">
-				<li style="margin-top: 10px;"><a href="intro.do"> - 인사말</a></li>
-				<li><a href="service.do">업무소개</a></li>
+				<li style="margin-top: 10px;"><a href="intro.do"> 인사말</a></li>
+				<li><a href="service.do"> - 업무소개</a></li>
 				<li><a href="contact.do">오시는길/연락처</a></li>
 			</ul>
 		</div>
 
 
 		<div class="container" id="hj-intro-con">
-			<div class="row" style="margin-top: 5%;">
-				<h2 class="mb-4 tm-section-title">인사말</h2>
-				<div class="mb-5 tm-underline" style="background: #8f8f8f">
-					<div class="tm-underline-inner" style="background: #8f8f8f"></div>
-				</div>
-				<div class="col-lg-6">
-					<img
-						src="${pageContext.request.contextPath}/resources/images/1.jpg"
-						alt="Image" class="img-fluid tm-intro-img" />
-				</div>
-				<div class="col-lg-6">
-					<div class="tm-intro-text-container">
-						<h2 class="tm-text-primary mb-4 tm-section-title">안녕하세요!</h2>
-						<p class="mb-4 tm-intro-text">
-							그동안 <strong> 저희 사무소</strong> 를 이용해 주시고 물심양면으로 많은 도움을 주신 데 대하여
-							진심으로 감사드립니다. 이번에 저희 홈페이지를 개설하였습니다. 매월 저희 홈페이지로 고객님을 찾아뵙고 진정한
-							조력자로서 공지사항,
-
-						</p>
-						<p class="mb-5 tm-intro-text">
-							<a rel="nofollow" href="#">세정소식, 생활 상식, 생활법률 등 다양한 내용의 경영정보를</a>
-							제공하고자 하오니 자세히 읽어보시고 업무에 많은 협조 부탁드립니다. 저는 앞으로도 본 업무에 소임을 다할 생각이오니
-							사업에 전념하셔서 금년에도좋은 결과 성취하시기를 빕니다. 지도 편달과 많은 성원 부탁드립니다. 감사합니다.
-						</p>
-						<div class="tm-next">
-							<a href="#work" class="tm-intro-text tm-btn-primary">편집</a>
-						</div>
+			<div class="row" style="margin-top: 5%;     text-align: center" >
+			<h2 class="mb-4 tm-section-title">업무소개</h2>
+					<div class="mb-5 tm-underline" style="background: #8f8f8f">
+						<div class="tm-underline-inner" style="background: #8f8f8f"></div>
 					</div>
+				<div class="col-lg-4">
+					<i class="fas fa-4x fa-bus text-center tm-icon"></i>
+					<h4 class="text-center tm-text-primary mb-4">기장대리 </h4>
+					<p>기장은 각종 재무보고의기초가 될뿐 아니라 소득세와 법인세 및 부가가치세 
+신고의 근거가 됩니다.</p>
+				</div>
+
+				<div class="col-lg-4 mt-5 mt-lg-0">
+					<i class="fas fa-4x fa-bicycle text-center tm-icon"></i>
+					<h4 class="text-center tm-text-primary mb-4">세무조정</h4>
+					<p>세무조정을 세무사가 직접 참가함으로써 잘못된 세무조정으로 인한세금 및 
+인력낭비를 원천적으로 봉쇄하고 있습니다.</p>
+				</div>
+				<div class="col-lg-4 mt-5 mt-lg-0">
+					<i class="fas fa-4x fa-city text-center tm-icon"></i>
+					<h4 class="text-center tm-text-primary mb-4">벤처기업</h4>
+					<p>벤처기업육성에 관한 특별조치법에 따라 각종의 혜택을 받기 위한 벤처기업 
+확인서비스를 제공합니다.</p>
 				</div>
 			</div>
 			<!-- row -->
 		</div>
-
-
 
 
 	</div>
