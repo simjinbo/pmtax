@@ -15,5 +15,10 @@ public class AdminController {
 	@RequestMapping("adminuser.do")
 	public String adminUserView(){
 		return "admin/adminUserList";
+	}
+	
+	@RequestMapping("adminque.do")
+	public String adminQuestionView(){
+		return "admin/adminQuestionList";
 	} 
 }

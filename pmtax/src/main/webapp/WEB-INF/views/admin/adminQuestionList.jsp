@@ -7,20 +7,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<script type="text/javascript" src="/sunbang/resources/js/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 	crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
 	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
 	crossorigin="anonymous">
-	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
 <style>
 .table-hover-gray tbody tr:hover{
  background:rgb(250,250,250);
@@ -72,8 +79,8 @@ input[type=date]::-webkit-inner-spin-button {
 <div class="container">
 	<div class="row">
 		<div class="col-12 d-flex justify-content-between bg-white shadow-sm border rounded-lg text-center p-3 mt-5">
-			<div class="card cursor-pointer w-25 ml-5"><div class="card-body">회원관리</div></div>
-			<div class="card cursor-pointer card-active w-25"><div class="card-body">1대1문의 <span class="badge badge-light">4</span></div></div>
+			<div class="card cursor-pointer w-25 ml-5"><a href="adminuser.do"><div class="card-body">회원관리</div></a></div>
+			<div class="card cursor-pointer card-active w-25"><a href="adminque.do"><div class="card-body">1대1문의 <span class="badge badge-light">4</span></div></a></div>
 			<div class="card cursor-pointer w-25 mr-5"><div class="card-body">세무정보</div></div>
 		</div>
 	</div>
@@ -165,13 +172,11 @@ input[type=date]::-webkit-inner-spin-button {
 				    </tbody>
 				  </table>
 			</div>
-			<div class="col-12 mt-5">
-				  <ul class="pagination justify-content-end">
-				    <li class="page-item"><a class="page-link" href="javascript:void(0);">이전</a></li>
-				    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-				    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-				    <li class="page-item"><a class="page-link" href="javascript:void(0);">다음</a></li>
-				  </ul>		
+			<div class="col-12 my-4 d-flex justify-content-end">
+				<button type="button" class="btn btn-outline-secondary mr-2" disabled>이전</button>
+				<button type="button" class="btn btn-outline-secondary mr-2 active">1</button>
+				<button type="button" class="btn btn-outline-secondary mr-2">2</button>
+				<button type="button" class="btn btn-outline-secondary">다음</button>
 			</div>
 		</div>
 	</div>
