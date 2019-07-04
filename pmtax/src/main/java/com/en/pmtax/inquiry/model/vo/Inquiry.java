@@ -1,5 +1,7 @@
 package com.en.pmtax.inquiry.model.vo;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -7,19 +9,18 @@ public class Inquiry implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 930205L;
 	
-	private String inquiry_no;
+	private int inquiry_no;
 	private String name;
 	private String email;
 	private String phone;
 	private String tell;
 	private String content;
-	private String inquiry_date;
-	private String user_no;
+	private Date inquiry_date;
 	
 	public Inquiry() {}
 
-	public Inquiry(String inquiry_no, String name, String email, String phone, String tell, String content,
-			String inquiry_date, String user_no) {
+	public Inquiry(int inquiry_no, String name, String email, String phone, String tell, String content,
+			Date inquiry_date) {
 		super();
 		this.inquiry_no = inquiry_no;
 		this.name = name;
@@ -28,14 +29,13 @@ public class Inquiry implements java.io.Serializable {
 		this.tell = tell;
 		this.content = content;
 		this.inquiry_date = inquiry_date;
-		this.user_no = user_no;
 	}
 
-	public String getInquiry_no() {
+	public int getInquiry_no() {
 		return inquiry_no;
 	}
 
-	public void setInquiry_no(String inquiry_no) {
+	public void setInquiry_no(int inquiry_no) {
 		this.inquiry_no = inquiry_no;
 	}
 
@@ -79,20 +79,12 @@ public class Inquiry implements java.io.Serializable {
 		this.content = content;
 	}
 
-	public String getInquiry_date() {
+	public Date getInquiry_date() {
 		return inquiry_date;
 	}
 
-	public void setInquiry_date(String inquiry_date) {
+	public void setInquiry_date(Date inquiry_date) {
 		this.inquiry_date = inquiry_date;
-	}
-
-	public String getUser_no() {
-		return user_no;
-	}
-
-	public void setUser_no(String user_no) {
-		this.user_no = user_no;
 	}
 
 	public static long getSerialversionuid() {
@@ -102,8 +94,7 @@ public class Inquiry implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Inquiry [inquiry_no=" + inquiry_no + ", name=" + name + ", email=" + email + ", phone=" + phone
-				+ ", tell=" + tell + ", content=" + content + ", inquiry_date=" + inquiry_date + ", user_no=" + user_no
-				+ "]";
+				+ ", tell=" + tell + ", content=" + content + ", inquiry_date=" + inquiry_date + "]";
 	}
 	
 }

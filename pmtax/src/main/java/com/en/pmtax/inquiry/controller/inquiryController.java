@@ -1,5 +1,7 @@
 package com.en.pmtax.inquiry.controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +25,6 @@ public class InquiryController {
 	
 	@RequestMapping(value="inquiryinsert.do", method=RequestMethod.POST)
 	public String insertInquiry(Inquiry inquiry, Model model) {
-		System.out.println(inquiry);
-		
 		if(inquiryService.insertInquiry(inquiry) > 0) {
 			return "common/main";
 		}else {

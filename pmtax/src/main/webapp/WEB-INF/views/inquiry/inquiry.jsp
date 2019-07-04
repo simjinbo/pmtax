@@ -310,7 +310,7 @@ font-style: normal;
 	</div><!-- required alert -->
 
 	<form id="sh_inquiry_form" action="inquiryinsert.do" method="post">
-	<input type="hidden" name="user_no" value="${loginUser.user_no}">
+	<%-- <input type="hidden" name="user_no" value="${loginUser.user_no}"> --%>
 	<div class="row" id="sh_inquiry">
 		<div class="col-md-12">
 			<div class="row" id="sh_inquiry_title"><!-- title -->
