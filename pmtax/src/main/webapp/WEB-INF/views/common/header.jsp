@@ -140,6 +140,7 @@ p.indent2 { padding-left: 0em }
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					 <a class="dropdown-item" href="intro.do">인사말</a>
 					 <a class="dropdown-item" href="#">업무소개</a>
+					 <a class="dropdown-item" href="introduceMember.do">구성원소개</a>
 					  <a class="dropdown-item" href="#">오시는길</a>
 				</div>
 		</div></li> <p class="indent2"></p>

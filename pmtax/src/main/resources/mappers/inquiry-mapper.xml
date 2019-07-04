@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="inquriyMapper">
+
+<resultMap type="Inquiry" id="resultInquiry">
+	<result property="inquiry_no" column="inquiry_no"/>
+	<result property="name" column="name"/>
+	<result property="email" column="email"/>
+	<result property="phone" column="phone"/>
+	<result property="tell" column="tell"/>
+	<result property="content" column="content"/>
+	<result property="inquiry_date" column="inquiry_date"/>
+	<result property="user_no" column="user_no"/>
+</resultMap>
+
+<insert id="insertInquiry">
+		insert into tb_inquiry
+		values(1, 'dfdf', 'sdjj0205@naver.com', '010-6769-6149', '02-715-6142', 'hihihihi', default, 1)
+</insert>
+
+</mapper>

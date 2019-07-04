@@ -5,13 +5,15 @@
 <configuration>
 	<typeAliases>
 	
-	 <typeAlias type="com.en.pmtax.taxinfo.model.vo.Taxinfo" alias="Taxinfo" /> 	 		
+	 <typeAlias type="com.en.pmtax.taxinfo.model.vo.Taxinfo" alias="Taxinfo" />
+	 <typeAlias type="com.en.pmtax.inquiry.model.vo.Inquiry" alias="Inquiry" /> 	 		
 		
 	</typeAliases>
 	
 	<mappers>
 		
-    <mapper resource="mappers/taxinfo-mapper.xml" /> 
+    <mapper resource="mappers/taxinfo-mapper.xml" />
+    <mapper resource="mappers/inquiry-mapper.xml"/> 
 	 
 	</mappers>
 	

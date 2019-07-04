@@ -6,30 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-	crossorigin="anonymous">
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
-<title>회계사무소</title>
+<title>가감세무법인</title>
 
 <script type="text/javascript"> 
 $(function(){
+	//이메일
+	$("#sh_email02").attr("readonly", false);
 	$('#sh_selectEmail').change(function(){ //이메일 입력방식 선택 
 		$("#sh_selectEmail option:selected").each(function () {
 			if($(this).val()== '1'){ //직접입력일 경우 
@@ -40,13 +23,207 @@ $(function(){
 				$("#sh_email02").attr("readonly", true); //비활성화 
 			} 
 		}); 
-	}); 	
+	}); 
+	
+	//휴대폰
+    $("#sh_phone").on('keydown', function(e){
+       // 숫자만 입력받기
+        var trans_num = $(this).val().replace(/-/gi,'');
+		var k = e.keyCode;
+				
+		if(trans_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) )){
+  	    e.preventDefault();
+		}
+    }).on('blur', function(){ // 포커스를 잃었을때 실행합니다.
+        if($(this).val() == '') return;
+
+        // 기존 번호에서 - 를 삭제합니다.
+        var trans_num = $(this).val().replace(/-/gi,'');
+      
+        // 입력값이 있을때만 실행합니다.
+        if(trans_num != null && trans_num != ''){
+            // 총 핸드폰 자리수는 11글자이거나, 10자여야 합니다.
+            if(trans_num.length==11 || trans_num.length==10){   
+                // 유효성 체크
+                var regExp_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+                if(regExp_ctn.test(trans_num)){
+                    // 유효성 체크에 성공하면 하이픈을 넣고 값을 바꿔줍니다.
+                    trans_num = trans_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3");                  
+                    $(this).val(trans_num);
+                }else{
+        			$("#sh_required").css("display", "block");
+        			$('#sh_required_text').text("유효하지 않은 전화번호입니다.");
+        			
+        			var offset = $('#sh_inquiry_title').offset();
+        			$("html, body").animate({scrollTop:offset.top},500);
+                    $(this).val("");
+                    $(this).focus();
+                }
+            }else{
+    			$("#sh_required").css("display", "block");
+    			$('#sh_required_text').text("유효하지 않은 전화번호입니다.");
+    			
+    			var offset = $('#sh_inquiry_title').offset();
+    			$("html, body").animate({scrollTop:offset.top},500);
+                $(this).val("");
+                $(this).focus();
+            }
+      	}
+  }); 
+	
+	//전화
+    $("#sh_tell").on('keydown', function(e){
+       // 숫자만 입력받기
+        var trans_num = $(this).val().replace(/-/gi,'');
+		var k = e.keyCode;
+				
+		if(trans_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) )){
+  	    e.preventDefault();
+		}
+    }).on('blur', function(){ // 포커스를 잃었을때 실행합니다.
+        if($(this).val() == '') return;
+
+        // 기존 번호에서 - 를 삭제합니다.
+        var trans_num = $(this).val().replace(/-/gi,'');
+      
+        // 입력값이 있을때만 실행합니다.
+        if(trans_num != null && trans_num != ''){
+            // 총 핸드폰 자리수는 11 ~ 9자여야 합니다.
+            if(trans_num.length==11 || trans_num.length==10 || trans_num.length==9){   
+                // 유효성 체크
+                var regExp_ctn = /^([0-9]{2,3})([0-9]{3,4})([0-9]{4})$/;
+                if(regExp_ctn.test(trans_num)){
+                    // 유효성 체크에 성공하면 하이픈을 넣고 값을 바꿔줍니다.
+                    trans_num = trans_num.replace(/^([0-9]{2,3})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3");                  
+                    $(this).val(trans_num);
+                }else{
+        			$("#sh_required").css("display", "block");
+        			$('#sh_required_text').text("유효하지 않은 전화번호입니다.");
+        			
+        			var offset = $('#sh_inquiry_title').offset();
+        			$("html, body").animate({scrollTop:offset.top},500);
+                    $(this).val("");
+                    $(this).focus();
+                }
+            }else{
+    			$("#sh_required").css("display", "block");
+    			$('#sh_required_text').text("유효하지 않은 전화번호입니다.");
+    			
+    			var offset = $('#sh_inquiry_title').offset();
+    			$("html, body").animate({scrollTop:offset.top},500);
+                $(this).val("");
+                $(this).focus();
+            }
+      	}
+  });  	
+	
+	//required
+	//close
+	$("#sh_required_close").click(function(){
+		$("#sh_required").css("display", "none");
+	});
+	
+	$(document).on("keypress keydown keyup", function(){
+		$("#sh_required").css("display", "none");
+	});
+	
+	$("#sh_submit").on("click", function(){
+		console.log("click");
+		//이름
+		if($('#sh_name').val() == ""){
+			$("#sh_required").css("display", "block");
+			$('#sh_required_text').text("이름을 입력하셔야합니다.");
+			
+			var offset = $('#sh_inquiry_title').offset();
+			$("html, body").animate({scrollTop:offset.top},500);
+			$("#sh_name").focus();
+		}
+		
+		//이메일
+		else if($('#sh_email01').val() == ""){
+			$("#sh_required").css("display", "block");
+			$('#sh_required_text').text("이메일 형식에 맞게 입력해주세요.");
+			
+			var offset = $('#sh_inquiry_title').offset();
+			$("html, body").animate({scrollTop:offset.top},500);
+			$("#sh_email01").focus();
+			
+		}
+		
+		else if($('#sh_email02').val() == ""){
+			$("#sh_required").css("display", "block");
+			$('#sh_required_text').text("이메일 형식에 맞게 입력해주세요.");
+			
+			var offset = $('#sh_inquiry_title').offset();
+			$("html, body").animate({scrollTop:offset.top},500);
+			$("#sh_email02").focus();
+			
+		}	
+		
+		//휴대폰
+		else if($('input[name=phone]').val() == ""){
+			$("#sh_required").css("display", "block");
+			$('#sh_required_text').text("휴대폰 번호를 입력하셔야합니다.");
+			
+			var offset = $('#sh_inquiry_title').offset();
+			$("html, body").animate({scrollTop:offset.top},500);
+			$("input[name=phone]").focus();
+		}
+		
+		//checkbox
+		else if($("#customCheck1").is(":checked") == false){
+			$("#sh_required").css("display", "block");
+			$('#sh_required_text').text("개인정보 수집 및 이용에 대해 동의하셔야만 등록이 가능합니다.");
+		}
+		
+		else {
+			//이메일 합치기
+			var email1 = $("#sh_email01").val();
+			var email2 = $("#sh_email02").val();
+			$("input[name=email]").val(email1 + "@" + email2);
+			
+ 			//상세설명 <br>로 변환
+			var str = $("#sh_inquiry_textarea").val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+			$("#sh_inquiry_textarea").val(str);
+			
+			$("#sh_inquiry_form").submit();
+			alert("1:1문의 등록에 성공하였습니다.");
+		}
+	});
 });
 </script>
 
 <style type="text/css">
+
+/* 본명조 */
+@font-face { 
+font-family: 'NotoSerifKR';
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NotoSerifKR.woff') format('woff'); 
+font-weight: normal; 
+font-style: normal; 
+}
+
+#sh_required {
+	display: none;
+	position: fixed;
+	z-index: 3;
+	color: white;
+	background-color: black;
+	border-color: #bee5eb;
+	border-radius: 5px;
+	margin-left: 55%;
+    margin-right: 3%;
+    padding: 15px;
+}
+
+#sh_required_close {
+	float: right;
+	cursor: pointer;
+}
+
 #sh_inquiry .col-md-2 {
-	background-color:#4d94ff;
+	background-color:#f0e0c2;
 	color:white;
 	padding:5px;
 	text-align:center;
@@ -61,30 +238,44 @@ $(function(){
 	color:red;
 }
 
-#sh_inquiry input[type=text], input[type=tel] {
-	width:30%;
-	border:1px solid grey;
+
+#sh_name, #sh_email01, #sh_phone, #sh_tell {
+	width:100%;
+	border:1px solid #f2f2f2;
 	border-radius:5px;
 }
 
-#sh_inquiry_title {
-	font-size:20pt;
-	color:#0066ff;
+#sh_email02 {
+	width:100px;
+	border:1px solid #f2f2f2;
+	border-radius:5px;
+	margin:5px;
 }
 
 #sh_selectEmail {
 	width:100px;
-	margin-right:10px;
-	border:1px solid grey;
+	border:1px solid #f2f2f2;
 	border-radius:5px;
 }
+
+@media screen and (min-width: 800px) {
+	#sh_name, #sh_email01, #sh_email02, #sh_phone, #sh_tell {
+	width:30%;
+	}
+}
+
+#sh_inquiry_title {
+	font-size:20pt;
+	font-family:NotoSerifKR;
+}
+
 
 #sh_inquiry_textarea {
 	width:100%;
 	resize: none;
 	overflow-x:hidden;
 	overflow-y:auto;
-	border:1px solid grey;
+	border:1px solid #f2f2f2;
 	border-radius:5px;
 }
 
@@ -97,19 +288,27 @@ $(function(){
 
 #sh_submit {
 	border-radius:4px;
-	background-color:#0066ff;	
+	background-color:black;	
 	padding:8px 8px;
 	width:100px;
 	color:white;
-	border: 1px solid #0066ff;
+	border: 1px solid black;
 	font-size:12pt;
 }
 
 </style>
 </head>
 <body>
+<c:import url="../common/header.jsp" />
+<br><br>
+<div class="container" style="width:80%;">
+ 	<div id="sh_required"><!-- required alert -->
+   		<strong>필수!</strong> <span id="sh_required_text"></span>&nbsp;&nbsp;&nbsp;
+   		<span id="sh_required_close"><i class="fas fa-times"></i></span>
+	</div><!-- required alert -->
 
-<div class="container">
+	<form id="sh_inquiry_form" action="inquiryinsert.do" method="post">
+	<input type="hidden" name="user_no" value="${loginUser.user_no}">
 	<div class="row" id="sh_inquiry">
 		<div class="col-md-12">
 			<div class="row" id="sh_inquiry_title"><!-- title -->
@@ -124,7 +323,7 @@ $(function(){
 					이름
 				</div>
 				<div class="col-md-10">
-					<input type="text" name="name">
+					<input type="text" id="sh_name" name="name">
 				</div>
 			</div><!-- 이름 -->
 			
@@ -150,10 +349,10 @@ $(function(){
 			<div class="row"><!-- 휴대폰 -->
 				<div class="col-md-2 my-auto">
 					<span class="sh_star">*</span>
-					휴대폰 
+					휴대폰
 				</div>
 				<div class="col-md-10">
-					<input type="tel" name="phone">
+					<input type="text" id="sh_phone" name="phone">
 				</div>
 			</div><!-- 휴대폰 -->
 			
@@ -162,7 +361,7 @@ $(function(){
 					전화
 				</div>
 				<div class="col-md-10">
-					<input type="tel" name="tell">
+					<input type="text" id="sh_tell" name="tell">
 				</div>
 			</div><!-- 전화 -->
 			
@@ -171,15 +370,13 @@ $(function(){
 					문의사항
 				</div>
 				<div class="col-md-10">
-					<textarea rows="15" cols="30" id="sh_inquiry_textarea" name="content">
-					
-					</textarea>
+					<textarea rows="15" cols="30" id="sh_inquiry_textarea" name="content"></textarea>
 				</div>
 			</div><!-- 문의사항 -->
 			<br>
 			<div class="row" id="sh_agree"><!-- 개인정보동의 및 제출 -->
 				<div class="col-md-12">
-					<textarea rows="15" cols="30" id="sh_agree_textarea" readonly>
+					<textarea rows="17" cols="30" id="sh_agree_textarea" readonly>
 ※ 개인정보 수집 및 이용에 관한 안내 
 
 본 사이트는 1대1문의를 이용하는 기업 및 개인을 대상으로 아래와 같이 개인정보를 수집하고 있습니다. 
@@ -208,7 +405,10 @@ $(function(){
 			</div><!-- 개인정보동의 및 제출 -->
 		</div>
 	</div>
+	</form>
 </div>
 
+<br><br><br><br>
+<c:import url="../common/footer.jsp" />
 </body>
 </html>

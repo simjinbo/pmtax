@@ -18,4 +18,10 @@ public class IntroController {
 	public String moveContact() {
 		return "intro/contact";
 	}
+	
+	//김성현 구성원 소개
+	@RequestMapping("introduceMember.do")
+	public String inquiryView() {
+		return "intro/introduceMember";
+	}
 }
