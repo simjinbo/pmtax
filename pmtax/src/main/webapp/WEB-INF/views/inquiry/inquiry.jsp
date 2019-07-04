@@ -223,11 +223,14 @@ font-style: normal;
 }
 
 #sh_inquiry .col-md-2 {
-	background-color:#f0e0c2;
+	background-color:black;
 	color:white;
+	border:1px solid black;
 	padding:5px;
 	text-align:center;
 	border-radius:5px;
+	font-size:10pt;
+	font-family: 'NotoSerifKR';
 }
 
 #sh_inquiry .col-md-10 {
@@ -249,7 +252,6 @@ font-style: normal;
 	width:100px;
 	border:1px solid #f2f2f2;
 	border-radius:5px;
-	margin:5px;
 }
 
 #sh_selectEmail {
@@ -366,7 +368,7 @@ font-style: normal;
 			</div><!-- 전화 -->
 			
 			<div class="row"><!-- 문의사항 -->
-				<div class="col-md-2">
+				<div class="col-md-2" style="margin: 3.4px 0px;">
 					문의사항
 				</div>
 				<div class="col-md-10">
