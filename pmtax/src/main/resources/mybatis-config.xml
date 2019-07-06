@@ -6,7 +6,8 @@
 	<typeAliases>
 	
 	 <typeAlias type="com.en.pmtax.taxinfo.model.vo.Taxinfo" alias="Taxinfo" />
-	 <typeAlias type="com.en.pmtax.inquiry.model.vo.Inquiry" alias="Inquiry" /> 	 		
+	 <typeAlias type="com.en.pmtax.inquiry.model.vo.Inquiry" alias="Inquiry" />
+	 <typeAlias type="com.en.pmtax.inquiry.model.vo.Member" alias="Member" />  	 		
 		
 	</typeAliases>
 	

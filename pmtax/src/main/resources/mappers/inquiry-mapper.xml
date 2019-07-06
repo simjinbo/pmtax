@@ -14,9 +14,49 @@
 	<result property="inquiry_date" column="inquiry_date"/>
 </resultMap>
 
+<resultMap type="Member" id="resultMember">
+	<result property="member_no" column="member_no"/>
+	<result property="member_name" column="member_name"/>
+	<result property="member_picture" column="member_picture"/>
+	<result property="qualification" column="qualification"/>
+	<result property="business_field" column="business_field"/>
+	<result property="member_grade" column="member_grade"/>
+</resultMap>
+
 <insert id="insertInquiry" parameterType="Inquiry">
-		insert into tb_inquiry
-		values(0, #{name}, #{email}, #{phone}, #{tell}, #{content}, default)
+	insert into tb_inquiry
+	values(0, #{name}, #{email}, #{phone}, #{tell}, #{content}, default)
 </insert>
+
+<select id="selectIntroduceMemberView" parameterType="Member" resultMap="resultMember">
+	select * from tb_member
+	order by member_grade, member_name
+</select>
+
+<insert id="insertMember" parameterType="Member">
+<if test="member_picture !=null">
+	insert into tb_member
+	values(0, #{member_name}, #{member_picture}, #{qualification}, #{business_field}, #{member_grade});
+</if>
+<if test="member_picture == null">
+	insert into tb_member
+	values(0, #{member_name}, 'sample.png', #{qualification}, #{business_field}, #{member_grade});
+</if>
+</insert>
+
+<update id="updateMember" parameterType="Member">
+update tb_member
+set 
+member_name = #{member_name},
+qualification = #{qualification},
+business_field = #{business_field},
+member_grade = #{member_grade}
+where member_no = #{member_no}
+</update>
+
+<delete id="deleteMember" parameterType="Integer">
+	delete from tb_member
+	where member_no = #{member_no}
+</delete>
 
 </mapper>

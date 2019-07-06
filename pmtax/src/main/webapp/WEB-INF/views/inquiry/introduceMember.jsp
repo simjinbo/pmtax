@@ -68,50 +68,22 @@ font-style: normal;
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach items="${member }" var="member" varStatus="status">	
 					<tr>
 						<td>
-							<img src="${pageContext.request.contextPath }/files/introduceMember/sample.jpg">
+							<img src="${pageContext.request.contextPath }/files/introduceMember/${member.member_picture }">
 						</td>
 						<td><b>
-							김가감
+							${member.member_name }
 						</td>						
 						<td>
-							세무사
+							${member.qualification }
 						</td>
 						<td>
-							세무조사 및 조세쟁송
+							${member.business_field }
 						</td>
 					</tr>
-
-					<tr>
-						<td>
-							<img src="${pageContext.request.contextPath }/files/introduceMember/sample.jpg">
-						</td>
-						<td><b>
-							김가감
-						</td>						
-						<td>
-							세무사
-						</td>
-						<td>
-							세무조사 및 조세쟁송
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							<img src="${pageContext.request.contextPath }/files/introduceMember/sample.jpg">
-						</td>
-						<td><b>
-							김가감
-						</td>						
-						<td>
-							세무사
-						</td>
-						<td>
-							세무조사 및 조세쟁송
-						</td>
-					</tr>										
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>

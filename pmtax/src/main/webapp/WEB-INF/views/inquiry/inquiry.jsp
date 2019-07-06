@@ -223,8 +223,8 @@ font-style: normal;
 }
 
 #sh_inquiry .col-md-2 {
-	background-color:black;
-	color:white;
+	background-color:white;
+	color:black;
 	border:1px solid black;
 	padding:5px;
 	text-align:center;
