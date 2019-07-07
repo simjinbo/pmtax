@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+
+	<resultMap id="resultAdminUser" type="AdminUser">
+		<id property="user_no" column="user_no" />
+		<result property="user_id" column="user_id" />
+		<result property="user_pwd" column="user_pwd" />
+		<result property="user_name" column="user_name" />
+		<result property="user_email" column="user_email" />
+		<result property="birth" column="birth" />
+		<result property="address" column="address" />
+		<result property="address_datail" column="address_datail" />
+		<result property="phone" column="phone" />
+		<result property="cellphone" column="cellphone" />
+		<result property="gender" column="gender" />
+		<result property="join_date" column="join_date" />
+		<result property="user_status" column="user_status" />
+	</resultMap>
+	
+	<resultMap id="resultAdminQuestion" type="AdminQuestion">
+		<id property="inquiry_no" column="inquiry_no" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="content" column="content" />
+		<result property="inquiry_date" column="inquiry_date" />
+	</resultMap>
+	
+	<!--  -->
+	<select id="selectAdminUser" resultMap="resultAdminUser" parameterType="AdminUser">
+		select * from tb_user where user_status = #{userstatus}
+		<if test="searchid != null">
+			and user_id = #{searchid}
+		</if>
+		<if test="searchphone != null">
+			and cellphone = #{searchphone}
+		</if>
+		<if test="startdate != null">
+			<![CDATA[and date(join_date) >= date(#{startdate})]]>
+		</if>
+		<if test="enddate != null">
+			<![CDATA[and date(join_date) <= date(#{enddate})]]>
+		</if>		
+	</select>
+	
+	<select id="selectUserCount" resultType="_int" parameterType="AdminUser">
+		select count(*) from tb_user where user_status = #{userstatus}
+		<if test="searchid != null">
+			and user_id = #{searchid}
+		</if>
+		<if test="searchphone != null">
+			and cellphone = #{searchphone}
+		</if>
+		<if test="startdate != null">
+			<![CDATA[and date(join_date) >= date(#{startdate})]]>
+		</if>
+		<if test="enddate != null">
+			<![CDATA[and date(join_date) <= date(#{enddate})]]>
+		</if>		
+	</select>
+	
+	<update id="updateAdminUser" parameterType="_int">
+		update tb_user set user_status='탈퇴' where user_no = #{user_no}
+	</update>
+	
+	<!--  -->
+	<select id="selectAdminQuestion" resultMap="resultAdminQuestion">
+		select * from tb_inquiry
+		<trim prefix="where" prefixOverrides="and">
+			<if test="searchname != null">
+				name = #{searchname}
+			</if>
+			<if test="searchphone != null">
+				and phone = #{searchphone}
+			</if>
+			<if test="startdate != null">
+				<![CDATA[and date(inquiry_date) >= date(#{startdate})]]>
+			</if>
+			<if test="enddate != null">
+				<![CDATA[and date(inquiry_date) <= date(#{enddate})]]>
+			</if>
+		</trim>
+	</select>
+	
+	<select id="selectQuestionCount" resultType="_int">
+		select count(*) from tb_inquiry
+		<trim prefix="where" prefixOverrides="and">
+			<if test="searchname != null">
+				name = #{searchname}
+			</if>
+			<if test="searchphone != null">
+				and phone = #{searchphone}
+			</if>
+			<if test="startdate != null">
+				<![CDATA[and date(inquiry_date) >= date(#{startdate})]]>
+			</if>
+			<if test="enddate != null">
+				<![CDATA[and date(inquiry_date) <= date(#{enddate})]]>
+			</if>
+		</trim>
+	</select>
+	
+	<delete id="deleteAdminQuestion" parameterType="_int">
+		delete	 from tb_inquiry where inquiry_no = #{inquiry_no}
+	</delete>
+
+
+
+</mapper>
