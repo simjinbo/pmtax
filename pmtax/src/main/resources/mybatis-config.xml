@@ -17,8 +17,10 @@
 	<mappers>
 		
     <mapper resource="mappers/taxinfo-mapper.xml" />
-    <mapper resource="mappers/inquiry-mapper.xml"/> 
-     <mapper resource="mappers/admin-mapper.xml" />  
+    <mapper resource="mappers/inquiry-mapper.xml" /> 
+    <mapper resource="mappers/admin-mapper.xml" />
+    <mapper resource="mappers/common-mapper.xml" />  
+
 	 
 	</mappers>
 	
