@@ -33,16 +33,75 @@
 <link rel="stylesheet" href="resources/slick/slick-theme.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						$
+								.ajax({
+									url : "serviceList.do",
+									type : "post",
+									success : function(data) {
+										var values = "<div class='row' style='margin-top: 5%; text-align: center'>"
+												+ "<h2 class='mb-4 tm-section-title'>업무소개</h2>"
+												+"<div class='mb-5 tm-underline' style='background: #8f8f8f'>"
+												+ "<div class='tm-underline-inner' style='background: #8f8f8f'></div></div></div>"
+												+ "<button type='button' data-toggle='modal' data-target='#hj_IModal' class='btn btn-primary btn-xs' return false;>업무소개 추가</button>";
+
+										var mvalues = "";
+										for ( var i in data) {
+											values += "<div class='row' style='margin-top: 5%; text-align: left'>"
+													+ "<div class='col-lg-12'>"
+													//+"<i class='fas fa-4x fa-bus text-center tm-icon'></i>"
+													+ "<h4 class='text-left tm-text-primary mb-4' id='title"+data[i].service_no+"'>"
+													+ data[i].service_title
+													+ "</h4>"
+													+ "<pre id='contents"+data[i].service_no+"'>"
+													+ data[i].service_contents
+													+ "</pre>"
+													+ "<button class='btn btn-default' id='hj_delete_service' onclick='clickDBtn("
+													+ data[i].service_no
+													+ ")'>삭제</button>"
+													+ "<button class='btn btn-default' id='hj_update_service' data-toggle='modal' data-target='#hj_UModal' onclick='clickUBtn("
+													+ data[i].service_no
+													+ ")'>수정</button>"
+													+ "</div></div>";
+										} //foreach
+										values += "</div>"
+
+										$("#serviceList").html(
+												$("#serviceList").html()
+														+ values);
+									},
+									error : function(jqXHR, textstatus,
+											errorthrown) {
+										console.log("error : " + jqXHR + ", "
+												+ textstatus + ", "
+												+ errorthrown);
+									}
+								}); //ajax
+
+					}); //ready
+</script>
 <style type="text/css">
+.btn-xs {
+    width: 150px;
+    height: 5%;
+/*     position:relative;
+   	left:58%;
+    top: 20px; */
+    
+}
 .jumbotron {
 	background-image:
 		url('${pageContext.request.contextPath}/resources/images/2.jpg');
 	background-size: cover;
 }
+
 #hj-intro-con {
-    min-height: 960px;
-	
+	min-height: 960px;
 }
+
 #hj-sub-container {
 	float: left;
 	margin-right: 1%;
@@ -60,9 +119,22 @@ li {
 ul {
 	padding: 0;
 }
+
+.row {
+	margin-left: 500px;
+}
+pre {
+white-space: pre-wrap;
+}
 </style>
 </head>
 <body>
+
+
+
+
+
+
 	<c:import url="../common/header.jsp" />
 	<div class="container-fluid">
 		<div class="jumbotron text-center">
@@ -78,37 +150,129 @@ ul {
 				<li><a href="contact.do">오시는길/연락처</a></li>
 			</ul>
 		</div>
+	</div>
+	<div class="container" id="hj-intro-con">
+		<div id="serviceList" style="padding-left: 30%;">
 
 
-		<div class="container" id="hj-intro-con">
-			<div class="row" style="margin-top: 5%;     text-align: center" >
-			<h2 class="mb-4 tm-section-title">업무소개</h2>
-					<div class="mb-5 tm-underline" style="background: #8f8f8f">
-						<div class="tm-underline-inner" style="background: #8f8f8f"></div>
-					</div>
-				<div class="col-lg-4">
-					<i class="fas fa-4x fa-bus text-center tm-icon"></i>
-					<h4 class="text-center tm-text-primary mb-4">기장대리 </h4>
-					<p>기장은 각종 재무보고의기초가 될뿐 아니라 소득세와 법인세 및 부가가치세 
-신고의 근거가 됩니다.</p>
-				</div>
+			<script type="text/javascript">
+				function clickDBtn(service_no) {
 
-				<div class="col-lg-4 mt-5 mt-lg-0">
-					<i class="fas fa-4x fa-bicycle text-center tm-icon"></i>
-					<h4 class="text-center tm-text-primary mb-4">세무조정</h4>
-					<p>세무조정을 세무사가 직접 참가함으로써 잘못된 세무조정으로 인한세금 및 
-인력낭비를 원천적으로 봉쇄하고 있습니다.</p>
-				</div>
-				<div class="col-lg-4 mt-5 mt-lg-0">
-					<i class="fas fa-4x fa-city text-center tm-icon"></i>
-					<h4 class="text-center tm-text-primary mb-4">벤처기업</h4>
-					<p>벤처기업육성에 관한 특별조치법에 따라 각종의 혜택을 받기 위한 벤처기업 
-확인서비스를 제공합니다.</p>
-				</div>
-			</div>
-			<!-- row -->
+					console.log(service_no);
+					location.href = "dservice.do?service_no=" + service_no;
+				}
+
+				function clickIBtn() {
+					
+					document.insertform.action = "${pageContext.request.contextPath}/iservice.do";
+					document.insertform.submit();
+				} 
+
+				function clickUBtn(service_no) {
+					var titleno = 'title';
+					titleno += service_no;
+					var contentsno = 'contents';
+					contentsno += service_no;
+					
+					
+					var title = $('#'+titleno).text();
+					var contents = $('#'+ contentsno).text();
+					
+					$('#hj_service_no_u').val(service_no);
+					$('#hj_service_title_u').val(title);
+					$('#hj_service_contents_u').val(contents);
+					
+					$('#hj_update_btn').click(function(){
+						document.updateform.action = "${pageContext.request.contextPath}/uservice.do";
+						document.updateform.submit();	
+					});
+				}
+			</script>
+
+
 		</div>
 
+		<div class="row" style="padding-left: 9%; padding-top: 5%;">
+			<div class="modal fade" id="hj_IModal" role="dialog">
+				<div class="modal-dialog modal-lg">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">업무소개 추가</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal" name="insertform" role="form" method="post"
+								action="iservice.do">
+								<div class="form-group">
+									<label for="name" class="col-sm-2 control-label">제목</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="hj_service_title"
+											name="service_title" placeholder="제목" value="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="message" class="col-sm-2 control-label">내용</label>
+									<div class="col-sm-10">
+										<textarea class="form-control" rows="4" name="service_contents"></textarea>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" onclick="clickIBtn()">작성</button>
+							<button type="button" class="btn btn-default"data-dismiss="modal">취소</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- 추가있떤자리임 -->
+		</div>
+		
+		
+		<div class="row" style="padding-left: 9%; padding-top: 5%;">
+			<div class="modal fade" id="hj_UModal" role="dialog">
+				<div class="modal-dialog modal-lg">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">업무소개 수정</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal" name="updateform" role="form" method="post"
+								action="uservice.do">
+								<div class="form-group" style="display:none;">
+									<input type="number" id="hj_service_no_u" name="service_no" />
+								</div>
+								<div class="form-group">
+									<label for="name" class="col-sm-2 control-label">제목</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="hj_service_title_u"
+											name="service_title" placeholder="제목" value="">
+									</div>
+									
+								</div>
+								<div class="form-group">
+									<label for="message" class="col-sm-2 control-label">내용</label>
+									<div class="col-sm-10">
+										<textarea class="form-control" rows="4"  id="hj_service_contents_u" name="service_contents"></textarea>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" id="hj_update_btn">수정</button>
+							<button type="button" class="btn btn-default"data-dismiss="modal">취소</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- 추가있떤자리임 -->
+		</div>
+		
 
 	</div>
 	<!-- container -->

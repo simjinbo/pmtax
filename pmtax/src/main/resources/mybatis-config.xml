@@ -10,7 +10,11 @@
 	 <typeAlias type="com.en.pmtax.inquiry.model.vo.Member" alias="Member" />
 	 
 	 <typeAlias type="com.en.pmtax.admin.model.vo.AdminUser" alias="AdminUser" />
-	<typeAlias type="com.en.pmtax.admin.model.vo.AdminQuestion" alias="AdminQuestion" />  	 		
+	<typeAlias type="com.en.pmtax.admin.model.vo.AdminQuestion" alias="AdminQuestion" />
+	
+	<typeAlias type="com.en.pmtax.user.model.vo.User" alias="User" /> 	 
+	<typeAlias type="com.en.pmtax.intro.model.vo.Intro" alias="Intro" />			
+	<typeAlias type="com.en.pmtax.intro.model.vo.IService" alias="IService" />  	 		
 		
 	</typeAliases>
 	
@@ -20,6 +24,9 @@
     <mapper resource="mappers/inquiry-mapper.xml" /> 
     <mapper resource="mappers/admin-mapper.xml" />
     <mapper resource="mappers/common-mapper.xml" />  
+    
+    <mapper resource="mappers/user-mapper.xml" />
+	<mapper resource="mappers/intro-mapper.xml" />
 
 	 
 	</mappers>

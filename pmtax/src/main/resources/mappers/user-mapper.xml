@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+
+	<resultMap type="User" id="resultUser">
+		<result property="user_no" column="user_no" />
+		<result property="user_id" column="user_id" />
+		<result property="user_pwd" column="user_pwd" />
+		<result property="user_email" column="user_email" />
+		<result property="birth" column="birth" />
+		<result property="address" column="address" />
+		<result property="address_detail" column="address_detail" />
+		<result property="gender" column="gender" />
+		<result property="join_date" column="join_date" />
+		<result property="user_status" column="user_status" />
+	</resultMap>
+
+
+	<select id="loginUser" parameterType="User"
+		resultMap="resultUser" useCache="true">
+		select * from tb_user
+		where user_id =
+		#{user_id}
+		and user_pwd = #{user_pwd}
+	</select>
+
+	<select id="checkDuplicate" parameterType="string"
+		resultType="_int">
+		select count(*) from tb_user where user_id = #{userid}
+	</select>
+
+	<insert id="insertUser" parameterType="User">
+		insert into tb_user
+		(user_id, user_pwd, user_name, user_email, birth,
+		address, address_detail, phone, cellphone, gender, join_date,
+		user_status) values(
+		#{user_id},
+		#{user_pwd},
+		#{user_name},
+		#{user_email},
+		null,
+		null,
+		null,
+		null,
+		null,
+		null,
+		now(),
+		'사용자');
+	</insert>
+
+</mapper>

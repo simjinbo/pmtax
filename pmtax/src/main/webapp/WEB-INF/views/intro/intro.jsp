@@ -94,18 +94,17 @@ ul {
 				</div>
 				<div class="col-lg-6">
 					<div class="tm-intro-text-container">
-						<h2 class="tm-text-primary mb-4 tm-section-title">안녕하세요!</h2>
+						<h2 class="tm-text-primary mb-4 tm-section-title">${intro.intro_title }</h2>
 						<p class="mb-4 tm-intro-text">
-							그동안 <strong> 저희 사무소</strong> 를 이용해 주시고 물심양면으로 많은 도움을 주신 데 대하여
-							진심으로 감사드립니다. 이번에 저희 홈페이지를 개설하였습니다. 매월 저희 홈페이지로 고객님을 찾아뵙고 진정한
-							조력자로서 공지사항,
-
+							${intro.contents }
+							
+					
 						</p>
-						<p class="mb-5 tm-intro-text">
+					<!-- <p class="mb-5 tm-intro-text">
 							<a rel="nofollow" href="#">세정소식, 생활 상식, 생활법률 등 다양한 내용의 경영정보를</a>
 							제공하고자 하오니 자세히 읽어보시고 업무에 많은 협조 부탁드립니다. 저는 앞으로도 본 업무에 소임을 다할 생각이오니
 							사업에 전념하셔서 금년에도좋은 결과 성취하시기를 빕니다. 지도 편달과 많은 성원 부탁드립니다. 감사합니다.
-						</p>
+						</p> -->
 						<div class="tm-next">
 							<a href="#work" class="tm-intro-text tm-btn-primary">편집</a>
 						</div>
