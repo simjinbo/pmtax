@@ -7,14 +7,22 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
-    <!-- DB -->
+   <!-- 호스팅서버 DB -->
+   <!--  <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="org.mariadb.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mariadb://localhost:3306/kuraem122"></property>
+        <property name="username" value="kuraem122"></property>
+        <property name="password" value="LsjPmtax25@@"></property>
+    </bean>  -->    
+
+    <!--  개인PC DB -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
         <property name="driverClass" value="org.mariadb.jdbc.Driver"></property>
         <property name="url" value="jdbc:mariadb://localhost:3306/pmtax"></property>
         <property name="username" value="pmtax"></property>
         <property name="password" value="pmtax"></property>
-    </bean>
- 
+    </bean>  
+       
 	<!-- Spring 과 MyBatis 연동 설정 -->
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
