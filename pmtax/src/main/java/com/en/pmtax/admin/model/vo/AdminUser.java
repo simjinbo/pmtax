@@ -18,7 +18,7 @@ public class AdminUser implements java.io.Serializable{
 	private String user_email;
 	private Date birth;
 	private String address;
-	private String address_datail;
+	private String address_detail;
 	private String phone;
 	private String cellphone;
 	private String gender;
@@ -27,11 +27,14 @@ public class AdminUser implements java.io.Serializable{
 	
 	//페이징
 	private String page;
-	private int currentPage = 1;
-	private int pageRowCount;
-	private int totalCount;
-	private int startPage;
-	private int endPage;
+	private int currentPage = 1; 		//현재 페이지
+	private int rowSize = 10;				//출력리스트 갯수
+	private int pageSize = 5;				//출력페이지 갯수
+	private int totalCount;				//총 글 갯수
+	private int startPage = 1;			//시작 페이지
+	private int endPage;					//끝 페이지
+	private int maxPage;					//맨끝 페이지
+	private int offset;						//offset 
 	
 	//필터
 	private String userstatus = "이용중";
@@ -43,7 +46,7 @@ public class AdminUser implements java.io.Serializable{
 	public AdminUser() {}
 
 	public AdminUser(int user_no, String user_id, String user_pwd, String user_name, String user_email, Date birth,
-			String address, String address_datail, String phone, String cellphone, String gender, Date join_date,
+			String address, String address_detail, String phone, String cellphone, String gender, Date join_date,
 			String user_status) {
 		super();
 		this.user_no = user_no;
@@ -53,31 +56,33 @@ public class AdminUser implements java.io.Serializable{
 		this.user_email = user_email;
 		this.birth = birth;
 		this.address = address;
-		this.address_datail = address_datail;
+		this.address_detail = address_detail;
 		this.phone = phone;
 		this.cellphone = cellphone;
 		this.gender = gender;
 		this.join_date = join_date;
 		this.user_status = user_status;
 	}
-	
-	public AdminUser(String page, int currentPage, int pageRowCount, int totalCount, int startPage, int endPage, String userstatus,
-			String searchid, String searchphone, String startdate, String enddate) {
+
+	public AdminUser(String page, int currentPage, int rowSize, int pageSize, int totalCount, int startPage,
+			int endPage, int maxPage, int offset, String userstatus, String searchid, String searchphone,
+			String startdate, String enddate) {
 		super();
 		this.page = page;
 		this.currentPage = currentPage;
-		this.pageRowCount = pageRowCount;
+		this.rowSize = rowSize;
+		this.pageSize = pageSize;
 		this.totalCount = totalCount;
 		this.startPage = startPage;
 		this.endPage = endPage;
+		this.maxPage = maxPage;
+		this.offset = offset;
 		this.userstatus = userstatus;
 		this.searchid = searchid;
 		this.searchphone = searchphone;
 		this.startdate = startdate;
 		this.enddate = enddate;
 	}
-
-
 
 	public int getUser_no() {
 		return user_no;
@@ -126,6 +131,14 @@ public class AdminUser implements java.io.Serializable{
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
+	
+	public String getAddress_detail() {
+		return address_detail;
+	}
+
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
+	}
 
 	public String getAddress() {
 		return address;
@@ -133,14 +146,6 @@ public class AdminUser implements java.io.Serializable{
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getAddress_datail() {
-		return address_datail;
-	}
-
-	public void setAddress_datail(String address_datail) {
-		this.address_datail = address_datail;
 	}
 
 	public String getPhone() {
@@ -263,12 +268,20 @@ public class AdminUser implements java.io.Serializable{
 		this.currentPage = currentPage;
 	}
 
-	public int getPageRowCount() {
-		return pageRowCount;
+	public int getRowSize() {
+		return rowSize;
 	}
 
-	public void setPageRowCount(int pageRowCount) {
-		this.pageRowCount = pageRowCount;
+	public void setRowSize(int rowSize) {
+		this.rowSize = rowSize;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
 	public int getTotalCount() {
@@ -280,7 +293,7 @@ public class AdminUser implements java.io.Serializable{
 	}
 
 	public int getStartPage() {
-		return startPage;
+		return ((getCurrentPage()-1) / getPageSize()) * getPageSize() + 1;
 	}
 
 	public void setStartPage(int startPage) {
@@ -288,24 +301,46 @@ public class AdminUser implements java.io.Serializable{
 	}
 
 	public int getEndPage() {
-		return endPage;
+		int result = getStartPage() + getPageSize() - 1;
+		
+		if(result > getMaxPage())
+			result = getMaxPage();
+		
+		return result;
 	}
 
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
+	
+	public int getOffset() {
+		return getRowSize() * (getCurrentPage() - 1) ;
+	}
 
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public int getMaxPage() {
+		return (getTotalCount() - 1) / getRowSize() + 1;
+	}
+
+	public void setMaxPage(int maxPage) {
+		this.maxPage = maxPage;
+	}
 
 	@Override
 	public String toString() {
 		return "AdminUser [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
 				+ user_name + ", user_email=" + user_email + ", birth=" + birth + ", address=" + address
-				+ ", address_datail=" + address_datail + ", phone=" + phone + ", cellphone=" + cellphone + ", gender="
+				+ ", address_detail=" + address_detail + ", phone=" + phone + ", cellphone=" + cellphone + ", gender="
 				+ gender + ", join_date=" + join_date + ", user_status=" + user_status + ", page=" + page
-				+ ", pageRowCount=" + pageRowCount + ", totalCount=" + totalCount + ", startPage=" + startPage
-				+ ", endPage=" + endPage + ", userstatus=" + userstatus + ", searchid=" + searchid + ", searchphone="
+				+ ", currentPage=" + currentPage + ", rowSize=" + rowSize + ", pageSize=" + pageSize + ", totalCount="
+				+ totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", maxPage=" + maxPage
+				+ ", offset=" + offset + ", userstatus=" + userstatus + ", searchid=" + searchid + ", searchphone="
 				+ searchphone + ", startdate=" + startdate + ", enddate=" + enddate + "]";
 	}
+
 
 	
 	

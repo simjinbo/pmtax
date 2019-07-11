@@ -12,7 +12,7 @@
 		<result property="user_email" column="user_email" />
 		<result property="birth" column="birth" />
 		<result property="address" column="address" />
-		<result property="address_datail" column="address_datail" />
+		<result property="address_detail" column="address_detail" />
 		<result property="phone" column="phone" />
 		<result property="cellphone" column="cellphone" />
 		<result property="gender" column="gender" />
@@ -43,7 +43,8 @@
 		</if>
 		<if test="enddate != null">
 			<![CDATA[and date(join_date) <= date(#{enddate})]]>
-		</if>		
+		</if>
+		order by user_no desc  limit #{rowSize} offset #{offset}		
 	</select>
 	
 	<select id="selectUserCount" resultType="_int" parameterType="AdminUser">
@@ -59,7 +60,7 @@
 		</if>
 		<if test="enddate != null">
 			<![CDATA[and date(join_date) <= date(#{enddate})]]>
-		</if>		
+		</if>
 	</select>
 	
 	<update id="updateAdminUser" parameterType="_int">
@@ -83,6 +84,7 @@
 				<![CDATA[and date(inquiry_date) <= date(#{enddate})]]>
 			</if>
 		</trim>
+		order by inquiry_no desc  limit #{rowSize} offset #{offset}	
 	</select>
 	
 	<select id="selectQuestionCount" resultType="_int">

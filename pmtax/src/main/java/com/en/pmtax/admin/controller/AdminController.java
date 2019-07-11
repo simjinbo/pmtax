@@ -28,6 +28,7 @@ public class AdminController {
 		
 		ArrayList<AdminUser> list = adminService.selectAdminUser(uPage);
 		int count = adminService.selectUserCount(uPage);
+		uPage.setTotalCount(count);
 		
 		if(list != null) {
 			mv.addObject("list", list);
@@ -57,6 +58,7 @@ public class AdminController {
 		
 		ArrayList<AdminQuestion> list = adminService.selectAdminQuestion(qPage);
 		int count = adminService.selectQuestionCount(qPage);
+		qPage.setTotalCount(count);
 		
 		if(list != null) {
 			mv.addObject("list", list);

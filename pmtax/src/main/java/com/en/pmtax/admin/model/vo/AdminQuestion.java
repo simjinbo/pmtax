@@ -19,6 +19,17 @@ public class AdminQuestion implements java.io.Serializable{
 	private String content;
 	private Date inquiry_date;
 	
+	//페이징
+	private String page;
+	private int currentPage = 1; 		//현재 페이지
+	private int rowSize = 10;				//출력리스트 갯수
+	private int pageSize = 5;				//출력페이지 갯수
+	private int totalCount;				//총 글 갯수
+	private int startPage = 1;			//시작 페이지
+	private int endPage;					//끝 페이지
+	private int maxPage;					//맨끝 페이지
+	private int offset;						//offset 
+	
 	//필터
 	private String searchname; 
 	private String searchphone;
@@ -39,8 +50,19 @@ public class AdminQuestion implements java.io.Serializable{
 		this.inquiry_date = inquiry_date;
 	}
 	
-	public AdminQuestion(String searchname, String searchphone, String startdate, String enddate) {
+	public AdminQuestion(String page, int currentPage, int rowSize, int pageSize, int totalCount, int startPage,
+			int endPage, int maxPage, int offset, String searchname, String searchphone, String startdate,
+			String enddate) {
 		super();
+		this.page = page;
+		this.currentPage = currentPage;
+		this.rowSize = rowSize;
+		this.pageSize = pageSize;
+		this.totalCount = totalCount;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.maxPage = maxPage;
+		this.offset = offset;
 		this.searchname = searchname;
 		this.searchphone = searchphone;
 		this.startdate = startdate;
@@ -151,14 +173,100 @@ public class AdminQuestion implements java.io.Serializable{
 	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
+	
+	// 페이지
+	
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
+	}
+	
+	public int getCurrentPage() {
+		if(getPage() != null && getPage() != "") {
+		currentPage = Integer.parseInt(getPage());
+		}
+		
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getRowSize() {
+		return rowSize;
+	}
+
+	public void setRowSize(int rowSize) {
+		this.rowSize = rowSize;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public int getStartPage() {
+		return ((getCurrentPage()-1) / getPageSize()) * getPageSize() + 1;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		int result = getStartPage() + getPageSize() - 1;
+		
+		if(result > getMaxPage())
+			result = getMaxPage();
+		
+		return result;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+	
+	public int getOffset() {
+		return getRowSize() * (getCurrentPage() - 1) ;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public int getMaxPage() {
+		return (getTotalCount() - 1) / getRowSize() + 1;
+	}
+
+	public void setMaxPage(int maxPage) {
+		this.maxPage = maxPage;
+	}
 
 	@Override
 	public String toString() {
 		return "AdminQuestion [inquiry_no=" + inquiry_no + ", name=" + name + ", email=" + email + ", phone=" + phone
-				+ ", tell=" + tell + ", content=" + content + ", inquiry_date=" + inquiry_date + ", searchname="
-				+ searchname + ", searchphone=" + searchphone + ", startdate=" + startdate + ", enddate=" + enddate
-				+ "]";
+				+ ", tell=" + tell + ", content=" + content + ", inquiry_date=" + inquiry_date + ", page=" + page
+				+ ", currentPage=" + currentPage + ", rowSize=" + rowSize + ", pageSize=" + pageSize + ", totalCount="
+				+ totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", maxPage=" + maxPage
+				+ ", offset=" + offset + ", searchname=" + searchname + ", searchphone=" + searchphone + ", startdate="
+				+ startdate + ", enddate=" + enddate + "]";
 	}
+
 
 
 	

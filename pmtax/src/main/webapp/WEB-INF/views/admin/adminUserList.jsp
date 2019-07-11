@@ -4,9 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
+<meta charset="UTF-8">
+<meta name="description" content="adminuser">
+<meta name="Robots" content="noindex, nofollow" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1" />
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.min.js"></script>
 <script>
 $(function(){
@@ -23,6 +26,9 @@ $(function(){
 		}else{
 			$("#jw_startDate").attr("max",$("#jw_endDate").val());
 		}
+	});
+	$("#jw_resetBtn").click(function(){
+		$("#jw_startDate").attr("max",kdate);
 	});
 	$("#jw_startDate").attr("max",kdate);
 	$("#jw_endDate").attr("max",kdate);
@@ -102,7 +108,7 @@ padding: 5px;
 .fa-size{
 font-size:17px;
 }
-th, td{
+th, td, button{
  white-space: nowrap;
 }
 input[type=date]::-webkit-inner-spin-button {
@@ -161,7 +167,7 @@ input[type=number]::-webkit-inner-spin-button {
      	<div class="col-12 col-md-3 col-lg-2 alert alert-info text-center p-1"><strong>휴대폰</strong></div>
      	<div class="col-12 col-md-9 col-lg-4 text-center text-sm-left p-1 px-3">${list.cellphone }</div>
      	<div class="col-12 col-md-3 col-lg-2 alert alert-info text-center p-1"><strong>주소</strong></div>
-     	<div class="col-12 col-md-9 col-lg-10 text-center text-sm-left p-1 px-3">${list.address } ${list.address_datail }</div>
+     	<div class="col-12 col-md-9 col-lg-10 text-center text-sm-left p-1 px-3">${list.address } ${list.address_detail} </div>
      </div></div>
 </div></div></div>
 </c:forEach>
@@ -176,6 +182,7 @@ input[type=number]::-webkit-inner-spin-button {
 			<div class="col-12 col-lg-2 col-md-5 jw_card card cursor-pointer my-1"><a class="text-decoration-none text-dark" href="taxinfoList.do"><div class="card-body">세무정보</div></a></div>
 		</div>
 	</div>
+	<!-- 필터 -->
 	<form>
 	<div class="row bg-white shadow-sm border rounded-lg mt-5 px-1 px-sm-3 py-3">
 		<div class="col-12"><h4><a class="text-decoration-none text-dark" href="adminuser.do">회원관리</a> 
@@ -185,12 +192,11 @@ input[type=number]::-webkit-inner-spin-button {
 				<input type="radio" id="jw_statusOn" name="userstatus" value="이용중" style="display:none;" <c:if test="${page.userstatus eq '이용중'}">checked</c:if>><label for="jw_statusOn" class="dropdown-item">이용중</label>
 				<input type="radio" id="jw_statusOff" name="userstatus" value="탈퇴" style="display:none;" <c:if test="${page.userstatus eq '탈퇴'}">checked</c:if>><label for="jw_statusOff" class="dropdown-item">탈퇴</label>
 			</div>
-			<button type="reset" class="btn btn-outline-info float-right ml-2">Reset</button><button type="sumbit" class="btn btn-outline-secondary float-right">Search</button></h4><hr>
+			<button type="reset" id="jw_resetBtn" class="btn btn-outline-info float-right ml-2">Reset</button><button type="sumbit" class="btn btn-outline-secondary float-right">Search</button></h4><hr>
 			<div class="form-inline">
-				<div class="mt-3">아이디  <input type="text" name="searchid" class="form-control ml-2 mr-5"></div>
-				<div class="mt-3"> 휴대폰  <input type="number" name="searchphone" class="form-control ml-2 mr-5"></div>
+				<div class="mt-3">아이디  <input type="search" name="searchid" class="form-control ml-2 mr-5"></div>
+				<div class="mt-3"> 휴대폰  <input type="search" name="searchphone" class="form-control ml-2 mr-5"></div>
 				<div class="mt-3 form-inline">가입날짜 <span class="input-group"><input type="date" name="startdate" id="jw_startDate" class="form-control mx-2"> ~ <input type="date" name="enddate" id="jw_endDate" class="form-control ml-2"></span></div>
-				<input type="hidden" name="page" value="2">
 			</div>
 		</div>
 	</div>
@@ -209,6 +215,7 @@ input[type=number]::-webkit-inner-spin-button {
 				        <th style="width:15%;">탈퇴</th>
 				      </tr>
 				    </thead>
+				    <!-- 리스트 -->
 				    <tbody>
 				    <c:if test="${empty list}">
 				    <tr>
@@ -231,11 +238,58 @@ input[type=number]::-webkit-inner-spin-button {
 				    </tbody>
 				  </table>
 			</div>
+			<!-- 페이징 -->
 			<div class="col-12 my-4 d-flex justify-content-end">
-				<button type="button" class="btn btn-outline-secondary mr-2" disabled>이전</button>
-				<button type="button" class="btn btn-outline-secondary mr-2 active">1</button>
-				<button type="button" class="btn btn-outline-secondary mr-2">2</button>
-				<button type="button" class="btn btn-outline-secondary">다음</button>
+				<c:url var="adminuser" value="/adminuser.do">
+					<c:param name="userstatus" value="${page.userstatus }"/>
+					<c:param name="searchid" value="${page.searchid }"/>
+					<c:param name="searchphone" value="${page.searchphone }"/>
+					<c:param name="startdate" value="${page.startdate }"/>
+					<c:param name="enddate" value="${page.enddate }"/>
+					<c:param name="page" value="${page.startPage - 1}"/>				
+				</c:url>
+				<c:choose>
+					<c:when test="${page.startPage eq '1' }">
+						<button type="button" class="btn btn-outline-secondary mr-1" disabled>이전</button>
+					</c:when>
+					<c:otherwise>
+						<a href="${adminuser }"><button type="button" class="btn btn-outline-secondary mr-1">이전</button></a>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="uPage" begin="${page.startPage }" end="${page.endPage }">
+					<c:url var="adminuser" value="/adminuser.do">
+					<c:param name="userstatus" value="${page.userstatus }"/>
+					<c:param name="searchid" value="${page.searchid }"/>
+					<c:param name="searchphone" value="${page.searchphone }"/>
+					<c:param name="startdate" value="${page.startdate }"/>
+					<c:param name="enddate" value="${page.enddate }"/>
+						<c:param name="page" value="${uPage}"/>				
+					</c:url>
+					<c:choose>
+						<c:when test="${uPage eq page.currentPage }">
+							<button type="button" class="btn btn-outline-secondary mr-1 active">${uPage }</button>
+						</c:when>
+						<c:otherwise>
+							<a href="${adminuser }"><button type="button" class="btn btn-outline-secondary mr-1">${uPage }</button></a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:url var="adminuser" value="/adminuser.do">
+					<c:param name="userstatus" value="${page.userstatus }"/>
+					<c:param name="searchid" value="${page.searchid }"/>
+					<c:param name="searchphone" value="${page.searchphone }"/>
+					<c:param name="startdate" value="${page.startdate }"/>
+					<c:param name="enddate" value="${page.enddate }"/>
+					<c:param name="page" value="${page.endPage + 1}"/>				
+				</c:url>
+				<c:choose>
+					<c:when test="${page.endPage lt page.maxPage}">
+						<a href="${adminuser }"><button type="button" class="btn btn-outline-secondary">다음</button></a>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-outline-secondary" disabled>다음</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>
