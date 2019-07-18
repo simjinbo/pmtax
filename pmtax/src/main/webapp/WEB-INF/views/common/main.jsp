@@ -177,7 +177,7 @@ background-color:#fafafa;
 			   </a>
 			</div>
 			<div class="col col-md-2">
-			 <a href="#">
+			 <a href="service.do">
 			  <div class="linkdiv">				
 				<i class="far fa-file-alt" style="font-size: 70px;margin-top:12px;"></i><br><br>
 				<span style="font-size: 20px;">업무소개</span>
@@ -185,7 +185,7 @@ background-color:#fafafa;
 			  </a>
 			</div>
 			<div class="col col-md-2">
-			 <a href="#">
+			 <a href="contact.do">
 			  <div class="linkdiv">				
 				<i class="fas fa-map-marker-alt" style="font-size: 70px;margin-top:12px;"></i><br><br>
 				<span style="font-size: 20px;">오시는길</span>

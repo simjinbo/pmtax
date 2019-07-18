@@ -9,25 +9,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>introduction</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-	crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/templatemo-style.css" />
 <link rel="stylesheet" href="resources/slick/slick.css">
 <link rel="stylesheet" href="resources/slick/slick-theme.css">
@@ -42,30 +23,37 @@
 									url : "serviceList.do",
 									type : "post",
 									success : function(data) {
-										var values = "<div class='row' style='margin-top: 5%; text-align: center'>"
-												+ "<h2 class='mb-4 tm-section-title'>업무소개</h2>"
-												+"<div class='mb-5 tm-underline' style='background: #8f8f8f'>"
-												+ "<div class='tm-underline-inner' style='background: #8f8f8f'></div></div></div>"
-												+ "<button type='button' data-toggle='modal' data-target='#hj_IModal' class='btn btn-primary btn-xs' return false;>업무소개 추가</button>";
+										var values = "<div style='margin-top: 5%; text-align: left'>"
+												+"<div style='margin:2%;'>"
+												+ "<h2 class='mb-4 tm-section-title' style='float:left' >업무소개</h2>"
+												+"<c:if test="${loginUser.user_id eq 'admin' }">"
+												+"<button type='button' style='position:absolute; left:70%; margin-top:10px;' data-toggle='modal' data-target='#hj_IModal' class='btn btn-primary btn-xs' return false;>업무소개 추가</button>"
+												+"</c:if>"
+												+"</div>"
+												+"<div class='mb-5 tm-underline' style='background: #8f8f8f; clear:both;' >"
+												+ "<div class='tm-underline-inner' style='background: #8f8f8f;'></div></div></div>";
+												
+												
 
 										var mvalues = "";
 										for ( var i in data) {
-											values += "<div class='row' style='margin-top: 5%; text-align: left'>"
-													+ "<div class='col-lg-12'>"
-													//+"<i class='fas fa-4x fa-bus text-center tm-icon'></i>"
+											values += "<div class='row' style='margin-top: 5%;'>"
+													+ "<div class='col-md-12'>"
 													+ "<h4 class='text-left tm-text-primary mb-4' id='title"+data[i].service_no+"'>"
 													+ data[i].service_title
 													+ "</h4>"
 													+ "<pre id='contents"+data[i].service_no+"'>"
 													+ data[i].service_contents
 													+ "</pre>"
-													+ "<button class='btn btn-default' id='hj_delete_service' onclick='clickDBtn("
-													+ data[i].service_no
-													+ ")'>삭제</button>"
+													+"<c:if test="${loginUser.user_id eq 'admin' }">"
 													+ "<button class='btn btn-default' id='hj_update_service' data-toggle='modal' data-target='#hj_UModal' onclick='clickUBtn("
 													+ data[i].service_no
 													+ ")'>수정</button>"
-													+ "</div></div>";
+													+ "<button class='btn btn-default' id='hj_delete_service' onclick='clickDBtn("
+													+ data[i].service_no
+													+ ")'>삭제</button>"
+													+ "</div></div>"
+													+"</c:if>";
 										} //foreach
 										values += "</div>"
 
@@ -87,9 +75,6 @@
 .btn-xs {
     width: 150px;
     height: 5%;
-/*     position:relative;
-   	left:58%;
-    top: 20px; */
     
 }
 .jumbotron {
@@ -101,12 +86,13 @@
 #hj-intro-con {
 	min-height: 960px;
 }
-
+.col-md-3 {
+	margin-top:3%;
+}
 #hj-sub-container {
-	float: left;
-	margin-right: 1%;
-	padding-right: 5%;
-	height: 500px;
+	padding-right: 50px;
+    min-width: 220px;
+    height: auto;
 }
 
 li {
@@ -142,7 +128,9 @@ white-space: pre-wrap;
 		</div>
 	</div>
 	<div class="container">
-		<div class="sub-container" id="hj-sub-container" style="float: left;">
+	<div class="row">
+		<div  class="col-md-3" >
+		<div id="hj-sub-container">
 			<h3>사무소 소개</h3>
 			<ul style="border-top: 3px solid black;">
 				<li style="margin-top: 10px;"><a href="intro.do"> 인사말</a></li>
@@ -150,16 +138,18 @@ white-space: pre-wrap;
 				<li><a href="contact.do">오시는길/연락처</a></li>
 			</ul>
 		</div>
-	</div>
-	<div class="container" id="hj-intro-con">
-		<div id="serviceList" style="padding-left: 30%;">
+		</div>
+	<div class="col-md-9" id="hj-intro-con">
+		<div id="serviceList">
 
 
 			<script type="text/javascript">
 				function clickDBtn(service_no) {
-
-					console.log(service_no);
+					if(confirm("정말 삭제 하시겠습니까?")){
 					location.href = "dservice.do?service_no=" + service_no;
+					}else{
+						return false;
+					}
 				}
 
 				function clickIBtn() {
@@ -191,7 +181,8 @@ white-space: pre-wrap;
 
 
 		</div>
-
+	</div>
+	</div>
 		<div class="row" style="padding-left: 9%; padding-top: 5%;">
 			<div class="modal fade" id="hj_IModal" role="dialog">
 				<div class="modal-dialog modal-lg">
@@ -271,11 +262,10 @@ white-space: pre-wrap;
 				</div>
 			</div>
 			<!-- 추가있떤자리임 -->
+			
 		</div>
-		
-
-	</div>
-	<!-- container -->
+		</div><!-- container -->
+	
 	<c:import url="../common/footer.jsp" />
 </body>
 </html>

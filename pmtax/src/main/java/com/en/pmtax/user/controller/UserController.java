@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	
+	@Autowired
+	BCryptPasswordEncoder bcyptPasswordEncoder;
+	
 	@RequestMapping(value = "login.do")
 	public String moveLogin() {
 		return "user/login";
@@ -30,15 +35,18 @@ public class UserController {
 	@RequestMapping(value = "ulogin.do", method=RequestMethod.POST)
 	public String userLogin(User user,HttpSession session, SessionStatus status, 
 			Model model,RedirectAttributes rttr) {
-		
+		String dUserPwd = bcyptPasswordEncoder.encode(user.getUser_pwd());
 		User loginUser = userService.userLogin(user);
+		//System.out.println("login : " + bcyptPasswordEncoder.matches(user.getUser_pwd(), dUserPwd));
 		
-		
-		if(loginUser != null) {
+	
+		if(loginUser != null && (bcyptPasswordEncoder.matches(user.getUser_pwd(), dUserPwd) == true)) {
+			
 			session.setAttribute("loginUser", loginUser);
 			status.setComplete();
 			return "common/main";
 		} else {
+			System.out.println("else로 왔음");
 			session.setAttribute("loginUser", null);
 			rttr.addFlashAttribute("message",false);
 			status.setComplete();
@@ -49,7 +57,8 @@ public class UserController {
 	@RequestMapping(value = "signup.do")
 	public String userSignup(User user,HttpSession session, SessionStatus status, 
 			Model model) {
-		//int enrollUser =
+		/*user.setUser_pwd(bcyptPasswordEncoder.encode("admin"));
+		user.setUser_id("admin");*/
 		userService.enrollUser(user);
 		
 		return "redirect:/login.do";
@@ -58,12 +67,12 @@ public class UserController {
 	@RequestMapping(value ="logout.do")
 	public String userLogout(HttpServletRequest request) {
 HttpSession session = request.getSession(false);
-		
+		String referer = request.getHeader("Referer");
 		if(session != null) {
 			session.invalidate();
 		}
 		
-		return "common/main";
+		return "redirect:"+referer;
 	}
 	
 	@RequestMapping(value="ucheckid.do")

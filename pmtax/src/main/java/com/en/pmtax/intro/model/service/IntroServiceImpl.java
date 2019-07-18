@@ -45,6 +45,12 @@ public class IntroServiceImpl implements IntroService {
 
 		return introDao.updateService(iservice,mybatisSession);
 	}
+
+	@Override
+	public int updateIntro(Intro intro) {
+		// TODO Auto-generated method stub
+		return introDao.updateIntro(intro, mybatisSession);
+	}
 	
 	
 }

@@ -9,25 +9,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>introduction</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-	crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/templatemo-style.css" />
 <link rel="stylesheet" href="resources/slick/slick.css">
 <link rel="stylesheet" href="resources/slick/slick-theme.css">
@@ -45,11 +26,15 @@
 	height: auto;
 }
 
+
 #hj-sub-container {
-	float: left;
-	margin-right: 1%;
-	padding-right: 5%;
-	height: 500px;
+	    padding-right: 50px;
+    min-width: 220px;
+    height: auto;
+}
+
+.col-md-3 {
+	margin-top:3%;
 }
 
 li {
@@ -73,7 +58,9 @@ ul {
 		</div>
 	</div>
 	<div class="container">
-		<div class="sub-container" id="hj-sub-container" style="float: left;">
+	<div class="row">
+		<div class="col-md-3">
+			<div  id="hj-sub-container">
 			<h3>사무소 소개</h3>
 			<ul style="border-top: 3px solid black;">
 				<li style="margin-top: 10px;"><a href="intro.do"> 인사말</a></li>
@@ -81,29 +68,28 @@ ul {
 				<li><a href="contact.do"> - 오시는길/연락처</a></li>
 			</ul>
 		</div>
+</div>
 
-
-		<div class="container" id="hj-intro-con">
+		<div class="col-md-9" id="hj-intro-con">
 			<div class="row" style="margin-top: 5%;">
 				<div class="col-12" style="padding-left: 0;">
 					<h2 class="mb-4 tm-section-title">오시는길 / 연락처</h2>
 					<div class="mb-5 tm-underline" style="background: #8f8f8f">
 						<div class="tm-underline-inner" style="background: #8f8f8f"></div>
 					</div>
-					<p class="mb-5">- 경기도 성남시 분당구 돌마로 68(구미동 23-1 분당프라자) 704호 |
-						Tel. 031) 732-6634 | Fax. 031) 732-6634 | (우) 13627</p>
+					<p class="mb-5">- ${intro.address } </p>
 				</div>
 
 				<div
 					class="col-sm-12 col-md-6 d-flex align-items-center tm-contact-item">
-					<a href="tel:01002200340"> <i class="fas fa-3x fa-phone mr-4"></i>
-						<span class="mb-0">010-0220-0340</span>
+					<a href="tel:${intro.phone }"> <i class="fas fa-3x fa-phone mr-4"></i>
+						<span class="mb-0">${intro.phone }</span>
 					</a>
 				</div>
 				<div
 					class="col-sm-12 col-md-6 d-flex align-items-center tm-contact-item">
-					<a href="mailto:info@company.co"> <i
-						class="fas fa-3x fa-envelope mr-4"></i> <span class="mb-0">info@company.co</span>
+					<a href="mailto:${intro.email }"> <i
+						class="fas fa-3x fa-envelope mr-4"></i> <span class="mb-0">${intro.email }</span>
 					</a>
 				</div>
 				<div id="map" style="width: 100%; height: 350px;"></div>
@@ -127,7 +113,7 @@ ul {
 					// 주소로 좌표를 검색합니다
 					geocoder
 							.addressSearch(
-									'경기도 성남시 분당구 돌마로 68(구미동 23-1 분당프라자) 704호',
+									'${intro.address}',
 									function(result, status) {
 
 										// 정상적으로 검색이 완료됐으면 
@@ -146,7 +132,7 @@ ul {
 											// 인포윈도우로 장소에 대한 설명을 표시합니다
 											var infowindow = new kakao.maps.InfoWindow(
 													{
-														content : '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+														content : '<div style="width:150px;text-align:center;padding:6px 0;">가감세무법인</div>'
 													});
 											infowindow.open(map, marker);
 
@@ -161,8 +147,7 @@ ul {
 
 		</div>
 
-
-	</div>
-	<!-- container -->
+		</div>
+	</div><!-- container -->
 	<c:import url="../common/footer.jsp" />
 </html>

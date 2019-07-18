@@ -16,5 +16,7 @@ public interface IntroService {
 	int insertService(IService service);
 
 	int updateService(IService iservice);
+
+	int updateIntro(Intro intro);
 	
 }

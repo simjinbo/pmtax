@@ -1,18 +1,25 @@
 package com.en.pmtax.intro.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.en.pmtax.intro.model.service.IntroService;
 import com.en.pmtax.intro.model.vo.Intro;
+import com.en.pmtax.user.model.vo.User;
 import com.en.pmtax.intro.model.vo.IService;
 
 @Controller
@@ -20,6 +27,36 @@ public class IntroController {
 	private static final String ArrayList = null;
 	@Autowired
 	private IntroService introService;
+	
+	@RequestMapping(value = "moveupdateintro.do")
+	public ModelAndView moveUpdateIntro() {
+		
+		
+		Intro intro = introService.getIntro();
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("intro/updateIntro");
+		mv.addObject("intro", intro);
+		
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "updateintro.do", method = RequestMethod.POST)
+	//public String updateIntro(Intro intro, HttpServletRequest request, @RequestParam(name="intro_img", required=false) MultipartFile file) throws IllegalStateException, IOException{
+	public String updateIntro(Intro intro, HttpServletRequest request,@RequestParam(value = "intro_imgs", required = false) MultipartFile file)throws IllegalStateException, IOException{
+		
+		
+		if(file.getOriginalFilename().length() > 0) {
+			
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/images");
+			file.transferTo(new File(savePath + "//" + file.getOriginalFilename()));
+			intro.setIntro_img(file.getOriginalFilename());
+		}
+
+		int result = introService.updateIntro(intro);
+		
+		return "redirect:intro.do";
+	}
 	
 	@RequestMapping(value = "intro.do")
 	public ModelAndView moveAbouts() {
@@ -77,7 +114,14 @@ public class IntroController {
 	
 	
 	@RequestMapping(value = "contact.do")
-	public String moveContact() {
-		return "intro/contact";
+	public ModelAndView moveContact() {
+		
+		Intro intro = introService.getIntro();
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("intro/contact");
+		mv.addObject("intro", intro);
+		
+		return mv;
+		
 	}
 }

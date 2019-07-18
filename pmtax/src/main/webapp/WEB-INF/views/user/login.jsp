@@ -96,12 +96,29 @@
 	display: none;
 }
 
-body {
+#hj_bimg{
+	width:104%;
+	height:104%;
+	background-image:url(${pageContext.request.contextPath }/resources/images/background2.jpg);
+	background-size:100% 100%;
+	position: absolute;
+	-webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    z-index:0;
+}
+
+html, body {
+	width:100%;
+	height:100%;
 	background: #3496d8;
 	background: -webkit-linear-gradient(right, #3496d8, #3496d8);
 	background: -moz-linear-gradient(right, #3496d8, #3496d8);
 	background: -o-linear-gradient(right, #3496d8, #3496d8);
 	background: linear-gradient(to left, #3496d8, #3496d8);
+	
 	font-family: "Roboto", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -151,7 +168,7 @@ body {
 							var pwd2 = $("#hj_pwd2").val();
 
 							if (pwd1 != pwd2) {
-								alert("암호와 암호확인이 일치하지 않습니다.\n" + "다시 입력하십시요.");
+								alert("암호가 일치하지 않습니다.\n" + "다시 확인해주세요");
 								$("#hj_pwd").select();
 							}
 						});
@@ -176,7 +193,7 @@ body {
 													return false;
 												}
 											}else {
-												alert("아이디중복!");
+												alert("아이디가 중복됩니다");
 												$("#user_id").focus();
 												return false;
 											}
@@ -234,11 +251,12 @@ body {
 </script>
 
 <body>
-
+<div class="background-image" id="hj_bimg">
+</div>
 	<div class="container">
 
 
-		<div class="login-page">
+		<div class="login-page" style="padding-top:30%;">
 			<div class="form">
 				<form class="register-form" name="signupform" method="post">
 					<input type="text" id="user_id" name="user_id" placeholder="아이디" />
@@ -280,6 +298,5 @@ body {
 			}, "slow");
 		});
 	</script>
-
 </body>
 </html>

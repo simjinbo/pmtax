@@ -39,6 +39,13 @@
 	<update id="updateService" parameterType="IService">
 		update tb_service set service_title=#{service_title}, service_contents=#{service_contents} where service_no=#{service_no}
 	</update>
+	
+	<update id="updateIntro" parameterType="Intro">
+		update tb_intro set intro_title=#{intro_title}, contents=#{contents}, intro_img=#{intro_img}
+	</update>
+	<update id="updateIntro2" parameterType="Intro">
+		update tb_intro set intro_title=#{intro_title}, contents=#{contents}
+	</update>
 
 
 </mapper>

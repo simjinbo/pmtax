@@ -38,4 +38,16 @@ public class IntroDao {
 		return result;
 	}
 
+	public int updateIntro(Intro intro, SqlSessionTemplate mybatisSession) {
+		
+		
+		int result = 0;
+		if(intro.getIntro_img() != null) {
+		result = mybatisSession.update("introMapper.updateIntro", intro);
+		} else {
+		result = mybatisSession.update("introMapper.updateIntro2", intro);	
+		}
+		return result;
+	}
+
 }

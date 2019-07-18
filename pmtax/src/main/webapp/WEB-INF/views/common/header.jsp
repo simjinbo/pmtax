@@ -139,9 +139,9 @@ p.indent2 { padding-left: 0em }
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					 <a class="dropdown-item" href="intro.do">인사말</a>
-					 <a class="dropdown-item" href="#">업무소개</a>
+					 <a class="dropdown-item" href="service.do">업무소개</a>
 					 <a class="dropdown-item" href="introduceMember.do">구성원소개</a>
-					  <a class="dropdown-item" href="#">오시는길</a>
+					  <a class="dropdown-item" href="contact.do">오시는길</a>
 				</div>
 		</div></li> <p class="indent2"></p>
 				<li class="nav-item"><div class="dropdown">				 
@@ -160,11 +160,24 @@ p.indent2 { padding-left: 0em }
 					 <a class="dropdown-item" href="inquiry.do">1:1문의</a>					
 				</div>
 		</div></li> <p class="indent2"></p>
+				<c:if test="${empty loginUser }">
 				<li class="nav-item">
 				<a class="navBtn" href="login.do" style="">
 					로그인
 				</a>
 				</li>
+				</c:if>
+				<c:if test="${!empty loginUser }">
+				<li class="nav-item"><div class="dropdown">
+				<a class="navBtn" href="logout.do"  data-toggle="dropdown">
+				${	loginUser.user_name} 님
+				</a>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					 <a class="dropdown-item" href="logout.do">로그아웃</a>					
+				</div>
+				</div>
+				</li>
+				</c:if>
 			</ul>
 			 <p class="indent"></p>
 		</div>		
