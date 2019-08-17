@@ -149,7 +149,7 @@ p.indent2 { padding-left: 0em }
 					세무자료실 
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					 <a class="dropdown-item" href="taxinfoList.do">세무뉴스 & 정보</a>					
+					 <a class="dropdown-item" href="taxinfoList.do?nowpage=0">세무뉴스 & 정보</a>					
 				</div>
 		</div></li> <p class="indent2"></p>
 				<li class="nav-item"><div class="dropdown">				 

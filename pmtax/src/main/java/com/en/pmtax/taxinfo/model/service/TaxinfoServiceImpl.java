@@ -1,6 +1,7 @@
 package com.en.pmtax.taxinfo.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,33 @@ public class TaxinfoServiceImpl implements TaxinfoService{
 	private TaxinfoDao taxinfoDao;
 	
 	@Override
-	public ArrayList<Taxinfo> selectTaxinfoList() {
-		return taxinfoDao.selectTaxinfoList(mybatisSession);
+	public ArrayList<Taxinfo> selectTaxinfoList(HashMap<String, Object> map) {
+		return taxinfoDao.selectTaxinfoList(mybatisSession, map);
+	}
+
+	@Override
+	public Taxinfo selectTaxinfoDetail(int info_no) {
+		return taxinfoDao.selectTaxinfoDetail(mybatisSession, info_no);
+	}
+
+	@Override
+	public int insertTaxinfo(Taxinfo taxinfo) {
+		return taxinfoDao.insertTaxinfo(mybatisSession, taxinfo);
+	}
+
+	@Override
+	public int deleteTaxinfo(int info_no) {
+		return taxinfoDao.deleteTaxinfo(mybatisSession, info_no);
+	}
+
+	@Override
+	public int updateTaxinfo(Taxinfo taxinfo) {
+		return taxinfoDao.updateTaxinfo(mybatisSession, taxinfo);
+	}
+
+	@Override
+	public int getTotalCount() {
+		// TODO Auto-generated method stub
+		return taxinfoDao.getTotalCount(mybatisSession);
 	}
 }

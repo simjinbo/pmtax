@@ -4,24 +4,82 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="taxinfoMapper">
 
-<resultMap type="Taxinfo" id="resultTaxinfo">
-<result property="info_no" column="info_no"/>
-<result property="info_title" column="info_title"/>
-<result property="info_writer" column="info_writer"/>
-<result property="file1" column="file1"/>
-<result property="file2" column="file2"/>
-<result property="file3" column="file3"/>
-<result property="file4" column="file4"/>
-<result property="file5" column="file5"/>
-<result property="file6" column="file6"/>
-<result property="info_contents" column="info_contents"/>
-<result property="info_date" column="info_date"/>
-<result property="hits" column="hits"/>
-</resultMap>
-
-
-<select id="selectTaxinfoList" resultMap="resultTaxinfo">
-		select * from tb_taxinfo
+	<resultMap type="Taxinfo" id="resultTaxinfo">
+		<id property="info_no" column="info_no" />
+		<result property="info_title" column="info_title" />
+		<result property="info_writer" column="info_writer" />
+		<result property="file1" column="file1" />
+		<result property="file2" column="file2" />
+		<result property="file3" column="file3" />
+		<result property="file4" column="file4" />
+		<result property="file5" column="file5" />
+		<result property="file6" column="file6" />
+		<result property="info_contents" column="info_contents" />
+		<result property="info_date" column="info_date" />
+		<result property="hits" column="hits" />
+	</resultMap>
+	
+	<select id="findTotalCount" resultType="int">
+        select count(*) from tb_taxinfo
 	</select>
-
+	
+	<select id="selectTaxinfoList" parameterType="HashMap" resultMap="resultTaxinfo">
+		SELECT 
+  		info_no,
+  		info_title,
+  		info_writer, 
+  		file1,
+  		file2,
+  		file3,
+  		file4,
+  		file5,
+  		file6,
+  		info_contents,
+  		info_date,
+  		hits 
+		FROM tb_taxinfo 
+        order by info_no desc 
+        limit #{startpoint}, #{row}
+	</select>
+	
+	<select id="selectTaxinfo" parameterType="_int" resultMap="resultTaxinfo">
+		select * 
+		from tb_taxinfo 
+		where info_no = #{info_no}
+	</select>
+	
+	<insert id="insertTaxinfo" parameterType="Taxinfo" useGeneratedKeys="true">
+		insert into tb_taxinfo
+		values (0,
+		#{info_title}, default, #{file1}, #{file2}, #{file3}, #{file4}, #{file5}, #{file6}, 
+		#{info_contents}, default, default ) 
+	</insert>
+	
+	<delete id="deleteTaxinfo" parameterType="_int">
+		delete 
+		from tb_taxinfo 
+		where info_no = #{info_no}
+	</delete>
+	
+	<update id="updateTaxinfo" parameterType="Taxinfo">
+		update 
+		tb_taxinfo 
+		set info_title = #{info_title},
+		file1 = #{file1},
+		file2 = #{file2},
+		file3 = #{file3},
+		file4 = #{file4},
+		file5 = #{file5},
+		file6 = #{file6},
+		info_contents = #{info_contents} 
+		where 
+		info_no = #{info_no}
+	</update>
+	<update id="updateHits" parameterType="_int">
+		update 
+		tb_taxinfo 
+		set hits = hits+1 
+		where 
+		info_no = #{info_no}
+	</update>
 </mapper>
